@@ -27,7 +27,8 @@ const envelopeArgs = {
   signerName: "Billy Kid",
   recipientId: "1",
   clientUserId: "123",
-  status: "sent"
+  status: "sent",
+  scenario: 1
 };
 
 // ***********************************************
@@ -54,28 +55,26 @@ app.listen(process.env.PORT || 3000, function() {
 // Endpoints
 // ***********************************************
 
-app.get('/', function(req, res) {
-  res.sendFile('public/index.html'); // no need to specify dir off root
+app.get('/', async (req, res) => {
+  res.send('try /getlink, /getlinkhtml, /getlinkpdf');
 });
 
-app.get('/iframe', async (req, res) => {
+app.get('/getlink', async (req, res) => {
+  envelopeArgs.scenario = 3; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
-  res.send('<html><head></head><body align="center" style="background-color:black; color:white;"><h1>DocuSign Framed</h1><iframe src="' + u + '" height="800" width="450" style="border:10px solid white; border-radius: 25px;";></iframe></body></html>');
+  res.send(u);
 });
 
-app.get('/redirect', async (req, res) => {
+app.get('/getlinkhtml', async (req, res) => {
+  envelopeArgs.scenario = 1; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
-  res.redirect(u);
+  res.send(u);
 });
 
-app.post('/redirect', async (req, res) => {
+app.get('/getlinkpdf', async (req, res) => {
+  envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
-  res.redirect(u);
-});
-
-app.post('/iframe', async (req, res) => {
-  let u = await CallDocuSign();
-  res.send('<html><head></head><body align="center" style="background-color:black; color:white;"><h1>DocuSign Framed</h1><iframe src="' + u + '" height="800" width="450" style="border:10px solid white; border-radius: 25px;";></iframe></body></html>');
+  res.send(u);
 });
 
 // ***********************************************
@@ -225,4 +224,4 @@ async function CallDocuSign() {
 // ***********************************************
 // Test direct from Server/Console on REPLIT Run
 // ***********************************************
-CallDocuSign();
+// CallDocuSign();
