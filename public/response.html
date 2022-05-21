@@ -24,6 +24,7 @@
         <div id="text">Processing...</div>
       </div>
       <p id="eventParameter">{{event}}</p>
+      <p id="state">{{state}}</p>
       <form method="GET">
         <button
           class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
@@ -45,10 +46,13 @@
       function loadingoff() {
         document.getElementById("overlay").style.display = "none";
       }
+      console.log('testing...');
       const urlParams = new URLSearchParams(window.location.search)
+      
       const state = urlParams.get('myPretendState')
       console.log(state);
       document.getElementById("state").innerHTML = state;
+      
       const event = urlParams.get('event')
       console.log(event);
       document.getElementById("eventParameter").innerHTML = event;
