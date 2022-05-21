@@ -78,7 +78,7 @@ app.get('/getlinkpdf', async (req, res) => {
 });
 
 app.post('/redirect', async (req, res) => {
-  envelopeArgs.scenario = 3; // 1 = HTML, 2 = PDF, else MIXED
+  envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
   res.redirect(u);
 });

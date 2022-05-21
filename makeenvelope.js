@@ -78,6 +78,26 @@ function makeEnvelope(args) {
     signers: [signer1]
   });
 
+  // let envelopeDefinition = new docusign.EnvelopeDefinition();
+  // Configure webhook
+  let eventNotification = new docusign.EventNotification();
+  // Set up the endpoint URL to call (it must be using HTTPS and at least TLS1.1 or higher)
+  eventNotification.url = 'https://webhook.site/2195d8cf-1a7f-4d6a-91a8-f0c54ea62bf2';
+  // DocuSign will retry on failure if this is set
+  eventNotification.requireAcknowledgment = 'false';
+  // This would send the documents together with the event to the endpoint
+  eventNotification.includeDocuments = 'false';
+  // Allow you to see this in the DocuSign Admin Connect logs section
+  eventNotification.loggingEnabled = 'false';
+  let envelopeEvents = [];
+  // In this case we only add a single envelope event, when the envelope is completed. You can also add events for recipients
+  let envelopeEvent = new docusign.EnvelopeEvent();
+  envelopeEvent.envelopeEventStatusCode = 'completed'; 
+  envelopeEvent.includeDocuments = 'false';
+  envelopeEvents.push(envelopeEvent);   
+  eventNotification.envelopeEvents = envelopeEvents;
+
+  env.eventNotification = eventNotification;
   env.recipients = recipients;
   env.status = args.status;
   return env;

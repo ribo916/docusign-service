@@ -23,8 +23,11 @@
         <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
         <div id="text">Processing...</div>
       </div>
-      <p id="eventParameter">{{event}}</p>
-      <p id="state">{{state}}</p>
+      <a href="https://webhook.site/#!/2195d8cf-1a7f-4d6a-91a8-f0c54ea62bf2" target="_blank">webhook site</a>
+      <br />
+      <span id="eventParameter">{{event}}</span>
+      <br />
+      <span id="state">{{state}}</span>
       <form method="GET">
         <button
           class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
@@ -46,7 +49,7 @@
       function loadingoff() {
         document.getElementById("overlay").style.display = "none";
       }
-      console.log('testing...');
+      
       const urlParams = new URLSearchParams(window.location.search)
       
       const state = urlParams.get('myPretendState')
