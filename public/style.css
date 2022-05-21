@@ -22,6 +22,11 @@
   -ms-transform: translate(-50%,-50%);
 }
 
+.mdl-layout__header-row {
+  color: black;
+  background-color: white;
+}
+
 .mdl-button {
   border-radius: 20px !important;
 }
@@ -45,4 +50,5 @@ body { background-color: white; }
 
 .container {
   padding: 2px 16px;
+  text-align: left;
 }
