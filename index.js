@@ -56,7 +56,9 @@ app.listen(process.env.PORT || 3000, function() {
 // ***********************************************
 
 app.get('/', async (req, res) => {
-  res.send('try /getlink, /getlinkhtml, /getlinkpdf');
+  envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
+  let u = await CallDocuSign();
+  res.redirect(u);
 });
 
 app.get('/getlink', async (req, res) => {
@@ -77,6 +79,9 @@ app.get('/getlinkpdf', async (req, res) => {
   res.send(u);
 });
 
+app.get('/responsepage', async (req, res) => {
+  res.send("RESPONSE PAGE... notice query parameters I added as well as the event status to handle post signing events");
+});
 // ***********************************************
 // DocuSign Functions
 // 1 - Get JWT Token
@@ -175,9 +180,23 @@ DS.createRecipientView = async function _createRecipientView(accessToken, envId)
 
     var envelopesApi = new docusign.EnvelopesApi(dsApiClient);
     var viewRequest = new docusign.RecipientViewRequest();
-    viewRequest.returnUrl = 'https://www.docusign.com/';
+    viewRequest.returnUrl = 'https://docusign-service.ribo916.repl.co/responsepage?myState=richfakestate123';
     viewRequest.authenticationMethod = 'email';
 
+    // DocuSign recommends that you redirect to DocuSign for the
+    // Signing Ceremony. There are multiple ways to save state.
+    // To maintain your application's session, use the pingUrl
+    // parameter. It causes the DocuSign Signing Ceremony web page
+    // (not the DocuSign server) to send pings via AJAX to your
+    // app,
+    // https://www.youtube.com/watch?v=0wdWMIXE9l8
+    
+    // Can use these to maintain state
+    viewRequest.PingFrequency = "600"; // seconds
+    // NOTE: The pings will only be sent if the pingUrl is an https address
+    viewRequest.PingUrl = "https://webhook.site/e6157240-6f90-4381-baa1-3a9741566daf"; // optional setting
+
+    
     viewRequest.email = envelopeArgs.signerEmail;
     viewRequest.userName = envelopeArgs.signerName;
     viewRequest.recipientId = envelopeArgs.recipientId;
