@@ -22,7 +22,7 @@ let scopes = "signature";
 let oAuthBasePath = "account-d.docusign.com"; // don't put the https:// 
 let apiBasePath = "https://demo.docusign.net/restapi";
 let consentUrl = `https://${oAuthBasePath}/oauth/auth?response_type=code&scope=impersonation+${scopes}&client_id=${integrationKey}&redirect_uri=${redirectUri}`;
-const envelopeArgs = {
+let envelopeArgs = {
   signerEmail: "sbadoc.test@gmail.com",
   signerName: "Billy Kid",
   recipientId: "1",
@@ -56,12 +56,10 @@ app.listen(process.env.PORT || 3000, function() {
 // ***********************************************
 
 app.get('/', async (req, res) => {
-  envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
-  let u = await CallDocuSign();
-  res.redirect(u);
+  res.sendFile('public/index.html'); // no need to specify dir off root
 });
 
-app.get('/getlink', async (req, res) => {
+app.get('/getlinkmixed', async (req, res) => {
   envelopeArgs.scenario = 3; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
   res.send(u);
@@ -79,9 +77,18 @@ app.get('/getlinkpdf', async (req, res) => {
   res.send(u);
 });
 
-app.get('/responsepage', async (req, res) => {
-  res.send("RESPONSE PAGE... notice query parameters I added as well as the event status to handle post signing events");
+app.post('/redirect', async (req, res) => {
+  envelopeArgs.scenario = 3; // 1 = HTML, 2 = PDF, else MIXED
+  let u = await CallDocuSign();
+  res.redirect(u);
 });
+
+app.post('/iframe', async (req, res) => {
+  envelopeArgs.scenario = 3; // 1 = HTML, 2 = PDF, else MIXED
+  let u = await CallDocuSign();
+  res.send('<html><head></head><body align="center" style="background-color:black; color:white;"><h1>DocuSign Framed</h1><iframe src="' + u + '" height="800" width="450" style="border:10px solid white; border-radius: 25px;";></iframe></body></html>');
+});
+
 // ***********************************************
 // DocuSign Functions
 // 1 - Get JWT Token
@@ -159,6 +166,7 @@ DS.createEnvelope = async function _createEnvelope(accessToken) {
       accountId: accountId,
       envelopeArgs: envelopeArgs
     };
+console.log("2 - envelope scenario = " + envelopeArgs.scenario);
     let envelope = envelopeCreator.makeEnvelope(args.envelopeArgs);
 
     // console.log("accountId = " + accountId); 
@@ -180,7 +188,7 @@ DS.createRecipientView = async function _createRecipientView(accessToken, envId)
 
     var envelopesApi = new docusign.EnvelopesApi(dsApiClient);
     var viewRequest = new docusign.RecipientViewRequest();
-    viewRequest.returnUrl = 'https://docusign-service.ribo916.repl.co/responsepage?myState=richfakestate123';
+    viewRequest.returnUrl = 'https://docusign-service.ribo916.repl.co/response.html?myPretendState=12345';
     viewRequest.authenticationMethod = 'email';
 
     // DocuSign recommends that you redirect to DocuSign for the

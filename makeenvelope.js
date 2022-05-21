@@ -7,7 +7,6 @@ function makeEnvelope(args) {
   env.emailSubject = "DocuSign REPLIT Example";
 
   let doc1, doc2, doc3, doc4;
-  
   if (args.scenario == 1) {
     doc1 = createHtmlDefinitionDoc('CreditScoreSummary.html');
     doc1.documentId = "1";
