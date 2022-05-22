@@ -13,6 +13,9 @@ const impersonationUserGuid = process.env['userid'];
 const integrationKey = process.env['integrationkey'];
 const rsaKey = process.env['privatekey'];
 const redirectUri = process.env['redirecturi'];
+const returnUrl = "https://embedded-signing.ribo916.repl.co/response.html";
+const pingUrl = "https://webhook.site/e6157240-6f90-4381-baa1-3a9741566daf";
+const pingFrequency = 60;
 
 // ***********************************************
 // Prepare DocuSign
@@ -188,7 +191,7 @@ DS.createRecipientView = async function _createRecipientView(accessToken, envId)
 
     var envelopesApi = new docusign.EnvelopesApi(dsApiClient);
     var viewRequest = new docusign.RecipientViewRequest();
-    viewRequest.returnUrl = 'https://docusign-service.ribo916.repl.co/response.html?myPretendState=12345';
+    viewRequest.returnUrl = returnUrl + '?myPretendState=12345';
     viewRequest.authenticationMethod = 'email';
 
     // DocuSign recommends that you redirect to DocuSign for the
@@ -200,9 +203,9 @@ DS.createRecipientView = async function _createRecipientView(accessToken, envId)
     // https://www.youtube.com/watch?v=0wdWMIXE9l8
     
     // Can use these to maintain state
-    viewRequest.PingFrequency = "600"; // seconds
+    viewRequest.PingFrequency = pingFrequency; 
     // NOTE: The pings will only be sent if the pingUrl is an https address
-    viewRequest.PingUrl = "https://webhook.site/e6157240-6f90-4381-baa1-3a9741566daf"; // optional setting
+    viewRequest.PingUrl = pingUrl; // optional setting
 
     
     viewRequest.email = envelopeArgs.signerEmail;
@@ -238,13 +241,7 @@ async function CallDocuSign() {
   console.log(url);
   const timeLinkCreated = window.performance.now();
   console.log("\n" + `>>> Time taken to get link = ${(timeLinkCreated - timeEnvelopeCreated) / 1000} seconds`);
-
-  console.log("\n" + "----- ABOUT TO GET ENVELOPE -----" + "\n");
-  let createdEnvelope = await DS.getEnvelope(accessToken, envelopeId);
-  const timeEnvelopeReceived = window.performance.now();
-  // console.log(createdEnvelope);
-  console.log("\n" + `>>> Time taken to get envelope = ${(timeEnvelopeReceived - timeLinkCreated) / 1000} seconds`);
-
+  
   return url;
 }
 

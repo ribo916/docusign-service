@@ -31,7 +31,7 @@ function makeEnvelope(args) {
     env.documents = [doc1, doc2, doc3, doc4];   
   }
   
-  // Construct Signer
+  // Construct Signer Object
   let signer1 = docusign.Signer.constructFromObject({
     email: args.signerEmail,
     name: args.signerName,
@@ -41,8 +41,7 @@ function makeEnvelope(args) {
   });
 
   // JSON tags for HTML signature injection
-  // NOTE: Having this requires you to send an HTML with a signature tab. If not, remove it from the signer1Tabs below.
-  let signHere1 = docusign.SignHere.constructFromObject({
+  let signHereHtml = docusign.SignHere.constructFromObject({
     stampType: "signature",
     name: "SignHere",
     tabLabel: "signatureTab",
@@ -53,7 +52,7 @@ function makeEnvelope(args) {
   });
 
   // Anchor tags for PDF example
-  let signHere2 = docusign.SignHere.constructFromObject({
+  let signHerePdf = docusign.SignHere.constructFromObject({
     anchorString: "Authorized Dealership Representative",
     anchorYOffset: "20",
     anchorUnits: "pixels",
@@ -61,14 +60,14 @@ function makeEnvelope(args) {
   });
 
   let signer1Tabs;
-  // Remove the JSON signing if no HTML is sent
+  // Don't apply JSON signer object if no HTML
   if (args.scenario == 2) {
     signer1Tabs = docusign.Tabs.constructFromObject({
-    signHereTabs: [signHere2],
+    signHereTabs: [signHerePdf],
     });      
   } else {
     signer1Tabs = docusign.Tabs.constructFromObject({
-    signHereTabs: [signHere1, signHere2],
+    signHereTabs: [signHereHtml, signHerePdf],
     });  
   }
   
@@ -78,7 +77,6 @@ function makeEnvelope(args) {
     signers: [signer1]
   });
 
-  // let envelopeDefinition = new docusign.EnvelopeDefinition();
   // Configure webhook
   let eventNotification = new docusign.EventNotification();
   // Set up the endpoint URL to call (it must be using HTTPS and at least TLS1.1 or higher)
@@ -103,7 +101,7 @@ function makeEnvelope(args) {
   return env;
 }
 
-// Read PDF from folder
+// Read PDF from folder and return document object
 function readPdfDoc(filename) {
   const data = fs.readFileSync('pdf/'+filename,{encoding:'base64', flag:'r'});
   let doc = new docusign.Document();
@@ -126,42 +124,6 @@ function createHtmlDefinitionDoc(docName) {
 function readFileUtf8(filename) {  
   const data = fs.readFileSync('html/'+filename,{encoding:'utf8', flag:'r'});
   return data;
-}
-
-// Create HTML as Base64 (converted to PDF in DS)
-function createHtmlBase64Doc(docName) {
-  let doc = new docusign.Document();  
-  let docb64 = readFileBase64(docName);
-  doc.documentBase64 = docb64; 
-  doc.fileExtension = "html";  
-  doc.name = docName;  
-  return doc;
-}
-// TODO: The synchronous file read is impacting creation time
-function readFileBase64(filename) {  
-  const data = fs.readFileSync('html/'+filename,{encoding:'base64', flag:'r'});
-  return data;
-}
-
-// LEGACY - Create PDF to be sent non-Responsive
-function createBasicPdfDoc(name, data) {
-  let doc = new docusign.Document();
-  doc.documentBase64 = data;
-  doc.fileExtension = "pdf";
-  doc.name = "Normal.pdf"; 
-  return doc;
-}
-
-// LEGACY - Create PDF to be sent Responsive
-function createResponsivePdfDoc(name, data) {
-  let doc = new docusign.Document();
-  let htmlDef = new docusign.DocumentHtmlDefinition();
-  htmlDef.source = "document";
-  htmlDef.showMobileOptimizedToggle = "true",
-  doc.htmlDefinition = htmlDef; 
-  doc.documentBase64 = data;
-  doc.name = name; 
-  return doc;
 }
 
 module.exports = { makeEnvelope };
