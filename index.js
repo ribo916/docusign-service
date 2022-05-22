@@ -14,8 +14,8 @@ const integrationKey = process.env['integrationkey'];
 const rsaKey = process.env['privatekey'];
 const redirectUri = process.env['redirecturi'];
 const returnUrl = "https://embedded-signing.ribo916.repl.co/response.html";
-const pingUrl = "https://webhook.site/e6157240-6f90-4381-baa1-3a9741566daf";
-const pingFrequency = 60;
+const pingUrl = "https://embedded-signing.ribo916.repl.co/";
+const pingFrequency = 600; // seconds
 
 // ***********************************************
 // Prepare DocuSign
@@ -200,12 +200,9 @@ DS.createRecipientView = async function _createRecipientView(accessToken, envId)
     // parameter. It causes the DocuSign Signing Ceremony web page
     // (not the DocuSign server) to send pings via AJAX to your
     // app,
-    // https://www.youtube.com/watch?v=0wdWMIXE9l8
-    
-    // Can use these to maintain state
+    // https://www.youtube.com/watch?v=0wdWMIXE9l8   
     viewRequest.PingFrequency = pingFrequency; 
-    // NOTE: The pings will only be sent if the pingUrl is an https address
-    viewRequest.PingUrl = pingUrl; // optional setting
+    viewRequest.PingUrl = pingUrl; // optional setting (must be an https site)
 
     
     viewRequest.email = envelopeArgs.signerEmail;

@@ -3,11 +3,10 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <!-- https://getmdl.io/started/index.html -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">-->
     <link rel="stylesheet" href="material.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://kit.fontawesome.com/c53538e646.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -23,11 +22,36 @@
         <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
         <div id="text">Processing...</div>
       </div>
-      <a href="https://webhook.site/#!/2195d8cf-1a7f-4d6a-91a8-f0c54ea62bf2" target="_blank">webhook site</a>
-      <br />
-      <span id="eventParameter">{{event}}</span>
-      <br />
-      <span id="state">{{state}}</span>
+
+      <div class="fa-1x">
+        <i class="fa-solid fa-envelope"></i>
+        <i class="fa-solid fa-file-signature"></i>
+        <i class="fa-solid fa-file-contract"></i>
+        <i class="fa-solid fa-cog fa-spin"></i>
+        <i class="fa-solid fa-tire fa-spin" style="--fa-animation-duration: 3s; --fa-animation-iteration-count: 5;--fa-animation-timing: ease-in-out;"></i>
+        <i class="fas fa-car"></i>
+      </div>
+      <br>
+      
+      <!-- ENVELOPE -->
+      <div class="card">
+        <div class="container">
+          <b>Response Details</b>
+          <ul>
+            <li><a href="https://webhook.site/#!/2195d8cf-1a7f-4d6a-91a8-f0c54ea62bf2" target="_blank">Envelope Webhooks</a></li>
+            <li>
+              DocuSign Event = 
+              <span id="eventParameter">{{event}}</span>
+            </li>
+            <li>
+              Applicant State = 
+              <span id="state">{{state}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <br>
+
       <form method="GET">
         <button
           class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
