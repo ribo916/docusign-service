@@ -117,6 +117,11 @@ app.get('/redirectimm', async (req, res) => {
   res.redirect(i);
 });
 
+app.post('/redirectimm', async (req, res) => {
+  let i = await CallIMM();
+  res.redirect(i);
+});
+
 app.post('/redirect', async (req, res) => {
   envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
