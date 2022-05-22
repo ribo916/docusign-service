@@ -34,6 +34,38 @@ let envelopeArgs = {
   scenario: 1
 };
 
+// **************************************
+// * Prepare IMM
+// **************************************
+const hostfiid = process.env.imm_hostfiid;
+const userid = process.env.imm_userid;
+const businessappuserid = process.env.imm_businessappuserid; 
+const partnerid = process.env.imm_partnerid; 
+const apikey = process.env.imm_apikey; 
+const immendpoint = process.env.imm_endpoint; 
+let loginbody = require('./imm/loginbody.json');
+let createsessbody = require('./imm/createsessbody.json');
+let sessheader = require('./imm/sessheader.json');
+// let adddocbody = require('./imm/adddoc_signature.json');
+// let adddocbody = require('./imm/adddoc_nosig_skip.json');
+let adddocbody = require('./imm/adddoc_nosig_view.json');
+let remotebody = require('./imm/remotebody.json');
+loginbody.HostFIID = hostfiid;
+loginbody.UserID = userid;
+loginbody.BusinessAppUserID = businessappuserid;
+loginbody.APIKey = apikey;
+loginbody.PartnerID = partnerid; 
+// console.log(loginbody);
+let loginendpoint = immendpoint + '/eSignapi/v1/login';
+let createsessendpoint = immendpoint + '/eSignapi/v1/session/rts/create';
+let getsessendpoint = immendpoint + '/eSignapi/v1/session';
+let adddocendpoint = immendpoint + '/eSignapi/v1';
+let commitendpoint = immendpoint + '/eSignapi/v1'; 
+let remoteendpoint = immendpoint + '/eSignapi/v1';
+let accesstoken = '';
+let hostsessionid = '';
+let loginheader = {"Content-Type": "application/json"};
+
 // ***********************************************
 // Prepare Express
 // ***********************************************
@@ -78,6 +110,11 @@ app.get('/getlinkpdf', async (req, res) => {
   envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
   res.send(u);
+});
+
+app.get('/redirectimm', async (req, res) => {
+  let i = await CallIMM();
+  res.redirect(i);
 });
 
 app.post('/redirect', async (req, res) => {
@@ -218,6 +255,9 @@ DS.createRecipientView = async function _createRecipientView(accessToken, envId)
   }
 };
 
+// **************************************  
+// ***** DOCUSIGN FLOW ***
+// **************************************
 async function CallDocuSign() {
   const timeStart = window.performance.now();
 
@@ -242,7 +282,60 @@ async function CallDocuSign() {
   return url;
 }
 
+// **************************************  
+// ***** IMM FLOW ***
+// **************************************
+async function CallIMM() {
+
+  // **************************************
+  // 1 - Login and get our access token
+  // **************************************
+  console.log('\n\n(A)--->' + loginendpoint);
+  loginresponse = await axios.post(loginendpoint, loginbody, { headers: loginheader});
+  // console.log(loginresponse.data);
+  console.log('Access Token = ' + loginresponse.headers['access-token']);
+  accesstoken = loginresponse.headers['access-token'];
+
+  // **************************************
+  // 2 - Create a session
+  // **************************************
+  console.log('\n\n(B)--->' + createsessendpoint);
+  sessheader["access-token"] = accesstoken; 
+  createsessresponse = await axios.post(createsessendpoint, createsessbody, { headers: sessheader});
+  hostsessionid = createsessresponse.data.HostSessionId
+  console.log('Host Session ID = ' + hostsessionid);
+
+  // **************************************
+  // 3 - Add Document
+  // **************************************
+  adddocendpoint = adddocendpoint + '/session/' + hostsessionid + '/rts/document';
+  console.log('\n\n(C)--->' + adddocendpoint);
+  adddocresponse = await axios.post(adddocendpoint, adddocbody, { headers: sessheader});
+  console.log(adddocresponse.data);
+
+  // **************************************
+  // 4 - Commit Session (all documents in IMM site for Banker)
+  // **************************************
+  /*
+  commitendpoint = commitendpoint + '/session/' + hostsessionid + '/commit';
+  console.log('\n\n(D)--->' + commitendpoint);
+  commitresponse = await axios.put(commitendpoint, '', { headers: sessheader});
+  console.log(commitresponse);
+  */
+
+  // **************************************
+  // 4 - Remote Call (does commit for you)
+  // **************************************
+  remoteendpoint = remoteendpoint + '/remote/' + hostsessionid;
+  console.log('\n\n(D)--->' + remoteendpoint);
+  remoteresponse = await axios.put(remoteendpoint, remotebody, { headers: sessheader});
+  console.log(remoteresponse.data);
+
+  return remoteresponse.data.URI; 
+}
+
 // ***********************************************
-// Test direct from Server/Console on REPLIT Run
+// Test directly from Server/Console on REPLIT Run
 // ***********************************************
 // CallDocuSign();
+// CallIMM();
