@@ -1,11 +1,11 @@
 ## DOCUSIGN SETUP
 
 ### Prerequisites
-This REPLIT requires the user to setup a free DocuSign account. Under Apps and Keys, you must create an integration app. Essentially, if you can create a quickstart or postman collection against your account, you can configure this replit as well. 
+This REPLIT requires the user to setup a free DocuSign account. Under Apps and Keys, you must create an integration application. Essentially, if you can create a quickstart or postman collection against your account, you can configure this replit as well. 
 
-### Secret Keys to Setup on Use
+### Secrets 
 
-Create the following secrets based on your DocuSign account
+Create the following secrets in your REPLIT based on your own DocuSign account
 
 * integrationkey = When you create an API application, you get this 
 * userid = At the account level. This is who our JWT is impersonating for esigning
@@ -31,22 +31,17 @@ We are using JWT authentication with this replit. We don't want users to require
 1. 3600 is 1 hour for our JWT, with no refresh token
 2. AuthCodeGrant is 8 hours plus a 30 day refresh token, then a new login required
 
- 
-
-
 
 
 ## IMM integration
+This REPL also supports IMM just for comparison purposes, but isn't required. This requires relationship with IMM. The Secrets that must be configured if forking this REPLIT are:
 
-1. /rts/remote requires at least 1 signature doc or 1 document with Party = View (default is Skip). If no signature documents, you will "Review" instead of "Sign"
-
-2. Party = View during rts/document will add non-signature documents to your signing package. Otherwise, they are skipped by default
-
-3. /rts/remote does a commit for you
-
-4. If you merely /commit (no remote), all documents go to IMM for a Banker. Documents without signatures/initials can be modified within their site prior to creating a signing ceremony
-
-5. The Email signing ceremony has no authentication
+* imm_apikey
+* imm_buisnessappuserid
+* imm_endpoint
+* imm_hostfiid
+* imm_partnerid
+* imm_userid
 
 
 

@@ -63,11 +63,34 @@
             <li>Return redirect URL configured when creating link</li>
             <li>Query parameters passed back via redirect (e.g. session)</li>
           </ul>
-          <b>Misc Notes</b>
+          <b>Misc</b>
           <ul>
-            <li>DocuSign STRONGLY recommends Redirect over iFrame</li>
-            <li>Plan is to use PDF signing</li>
+            <li>DocuSign recommends Redirect over iFrame</li>
+            <ul>
+              <li><a href="https://www.docusign.com/blog/developers/the-problems-iframes" target="_blank">Reference 1</a></li>
+              <li><a href="https://www.docusign.com/blog/developers/new-browser-security-settings-and-iframes#:~:text=Don't%20use%20an%20iframe&text=Similar%20to%20the%20issues%20for,browser%20for%20the%20signing%20ceremony." target="_blank">Reference 2</a></li>
+            </ul>
+            <li>Current decision to leverage PDF signing</li>
+            <ul>
+              <li><a href="https://slides.com/compliancesystems/signing/fullscreen" target="_blank">Jan 2022 Conversation</a></li>
+            </ul>
+            <li>DocuSign solution options</li>
+            <ul>
+              <li>ISV Referral = Use CU account</li>
+              <li>ISV Reseller = Use our own account</li>
+              <li>Our plan was originally ISV Referral on day 1, but Allegro supports either model</li>
+            </ul>
+            <li>Webhooks</li>
+            <ul>
+              <li><a href="https://www.docusign.com/blog/developers/connect-20" target="_blank">DocuSign Connect v2</a></li>
+              <li>Must enable this feature (free) in the specific DocuSign account</li>
+              <li>Change the EnvelopeCreate method to list all the specific events you want</li>
+            </ul>
           </ul>
+          <b>TODO</b>
+          <ul>            
+            <li>Update this site to use Connectv2.0 (new JSON webhook model)</li>
+          </ul>          
         </div>
       </div>
       <br>

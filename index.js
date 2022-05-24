@@ -13,7 +13,7 @@ const impersonationUserGuid = process.env['userid'];
 const integrationKey = process.env['integrationkey'];
 const rsaKey = process.env['privatekey'];
 const redirectUri = process.env['redirecturi'];
-const returnUrl = "https://embedded-signing.ribo916.repl.co/response.html";
+let returnUrl = "https://embedded-signing.ribo916.repl.co/response.html";
 const pingUrl = "https://embedded-signing.ribo916.repl.co/";
 const pingFrequency = 600; // seconds
 
@@ -135,8 +135,15 @@ app.post('/redirect', async (req, res) => {
   res.redirect(u);
 });
 
+app.get('/iframe', async (req, res) => {
+  envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
+  returnUrl = "https://embedded-signing.ribo916.repl.co/end.html";
+  let u = await CallDocuSign();
+  res.send('<html><head></head><body align="center" style="background-color:black; color:white;"><h1>DocuSign Framed</h1><iframe src="' + u + '" height="800" width="450" style="border:10px solid white; border-radius: 25px;";></iframe></body></html>');
+});
+
 app.post('/iframe', async (req, res) => {
-  envelopeArgs.scenario = 3; // 1 = HTML, 2 = PDF, else MIXED
+  envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
   res.send('<html><head></head><body align="center" style="background-color:black; color:white;"><h1>DocuSign Framed</h1><iframe src="' + u + '" height="800" width="450" style="border:10px solid white; border-radius: 25px;";></iframe></body></html>');
 });
