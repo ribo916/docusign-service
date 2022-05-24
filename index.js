@@ -94,6 +94,10 @@ app.get('/', async (req, res) => {
   res.sendFile('public/index.html'); // no need to specify dir off root
 });
 
+app.post('/', async (req, res) => {
+  res.sendFile('public/index.html'); // no need to specify dir off root
+});
+
 app.get('/getlinkmixed', async (req, res) => {
   envelopeArgs.scenario = 3; // 1 = HTML, 2 = PDF, else MIXED
   let u = await CallDocuSign();
