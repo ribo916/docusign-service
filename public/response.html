@@ -52,11 +52,13 @@
       </div>
       <br>
 
-      <form method="GET">
+      <form method="GET" id="homeform" action="/">
         <button
           class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
-          id="btnRedirect" 
-          formaction="/" 
+          id="btnHome" 
+          name="btnHome"
+          type="submit"
+          onTouchStart="loadingonphone()"
           onclick="loadingon()">
           Start Over
         </button>
@@ -67,6 +69,10 @@
   </main>
 </div>
     <script>
+      function loadingonphone() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementbyId("homeform").submit();
+      }
       function loadingon() {
         document.getElementById("overlay").style.display = "block";
       }

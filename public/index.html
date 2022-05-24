@@ -72,7 +72,7 @@
       </div>
       <br>
       
-      <form method="POST">
+      <form method="POST" id="myform" action="/redirect">
 
         <div class="buttoncontainer">
 
@@ -90,7 +90,9 @@
           <button
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
             id="btnRedirect"
-            formaction="/redirect"
+            name="btnRedirect"
+            type="submit"
+            onTouchStart="loadingonphone()"
             onclick="loadingon()">
             DocuSign
           </button>
@@ -113,6 +115,10 @@
   </main>
 </div>
     <script>
+      function loadingonphone() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("myform").submit();
+      }
       function loadingon() {
         document.getElementById("overlay").style.display = "block";
       }
