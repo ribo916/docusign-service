@@ -39,7 +39,7 @@
       <div class="card">
         <div class="container">
           <b>Overview</b>
-          <p>This sample REPL demos the DocuSign embedded signing process</p>
+          <p>This sample REPL demos the DocuSign embedded signing process embedded in a generic consumer web application</p>
         </div>
       </div>
       <br>
@@ -49,8 +49,8 @@
         <div class="container">
           <b>1 - Create Envelope</b>
           <ul>
-            <li>Envelope contains documents, recipients, and eventNotification configs</li>
-            <li>Recipients are added with a signing order</li>
+            <li>Envelope created with documents, recipients, and webhook configs</li>
+            <li>Recipients are created with a signing order</li>
             <li>Recipients are each configured to be embedded vs remote</li>
             <li>Webhook notifications are sent via DocuSign Connect</li>
           </ul>
@@ -58,10 +58,10 @@
           <ul>
             <li>Link is 300 second TTL, one time use</li>
             <li>Link can be requested numerous times</li>
-            <li>Link request will fail (with proper error) is link requested out of order (defined in envelope creation)</li>
-            <li>Can configure ping and ping frequency (via browser) to maintain state</li>
-            <li>Redirect URL configured when creating link</li>
-            <li>Query parameters passed in Return URL returned via redirect (e.g. session)</li>
+            <li>Link request will fail (with proper error) is link requested out of order</li>
+            <li>Can configure ping and ping frequency to maintain the application state during redirect</li>
+            <li>Return redirect URL configured when creating link</li>
+            <li>Query parameters passed back via redirect (e.g. session)</li>
           </ul>
           <b>Misc Notes</b>
           <ul>
