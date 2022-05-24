@@ -43,17 +43,16 @@
         </div>
       </div>
       <br>
-      
+      <!-- https://www.docusign.com/blog/developers/connect-webhooks-json-notifications -->
       <!-- DocuSign Process -->
       <div class="card">
         <div class="container">
           <b>1 - Create Envelope</b>
           <ul>
-            <li>Envelope contains documents, recipients, and eventNotification details</li>
+            <li>Envelope contains documents, recipients, and eventNotification configs</li>
             <li>Recipients are added with a signing order</li>
             <li>Recipients are each configured to be embedded vs remote</li>
-            <li>Webhook notifications can be configured for envelope vs recipients</li>
-            <li>DocuSign has a newer webhook solution that is JSON-based, but default is XML</li>
+            <li>Webhook notifications are sent via DocuSign Connect</li>
           </ul>
           <b>2 - Create Recipient View</b>
           <ul>
