@@ -49,21 +49,17 @@
         <div class="container">
           <b>1 - Create Envelope</b>
           <ul>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
+            <li>Recipients are added for embedded vs remote signing</li>
+            <li>Webhook notifications can be configured for envelope vs recipients</li>
           </ul>
           <b>2 - Create Recipient View</b>
           <ul>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-          </ul>
-          <b>3 - Post Signing Options</b>
-          <ul>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
+            <li>300 second TTL - one time use</li>
+            <li>Can be requested numerous times</li>
+            <li>Will only allow links requested in proper signing order (defined in envelope creation)</li>
+            <li>Can configure browser-based ping and ping frequency to maintain state</li>
+            <li>Return URL can be configured for redirect post-signing</li>
+            <li>Query parameter passed in return URL returned through (e.g. state)</li>
           </ul>
         </div>
       </div>
@@ -71,12 +67,23 @@
       
       <form method="POST">
 
-    
         <div class="buttoncontainer">
+
+          <div>
+            <!-- // 1 = HTML, 2 = PDF, else MIXED -->
+            <input type="radio" id="html" name="scenario" value="1">
+            <label for="html">HTML</label>
+            <input type="radio" id="pdf" name="scenario" value="2" checked>
+            <label for="css">PDF</label>
+            <input type="radio" id="mixed" name="scenario" value="3">
+            <label for="javascript">MIXED</label>
+          </div>
+          <br>  
+          
           <button
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
             id="btnRedirect" 
-            formaction="/redirect" 
+            formaction="/redirect"
             onclick="loadingon()">
             DocuSign
           </button>
@@ -92,7 +99,6 @@
           -->
         </div>
   
-        
       </form> 
       <br>
       </form>

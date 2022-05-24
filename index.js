@@ -123,7 +123,10 @@ app.post('/redirectimm', async (req, res) => {
 });
 
 app.post('/redirect', async (req, res) => {
-  envelopeArgs.scenario = 2; // 1 = HTML, 2 = PDF, else MIXED
+  console.log(req.body); // body parameters (radio button)
+  console.log(req.query); // query parameters
+  const scenario = req.body.scenario; // 1 = HTML, 2 = PDF, else MIXED
+  envelopeArgs.scenario = scenario; 
   let u = await CallDocuSign();
   res.redirect(u);
 });
