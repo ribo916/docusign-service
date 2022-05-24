@@ -39,7 +39,7 @@
       <div class="card">
         <div class="container">
           <b>Overview</b>
-          <p>This sample REPL just on prototyping the DocuSign embedded signing process</p>
+          <p>This sample REPL demos the DocuSign embedded signing process</p>
         </div>
       </div>
       <br>
@@ -49,17 +49,25 @@
         <div class="container">
           <b>1 - Create Envelope</b>
           <ul>
-            <li>Recipients are added for embedded vs remote signing</li>
+            <li>Envelope contains documents, recipients, and eventNotification details</li>
+            <li>Recipients are added with a signing order</li>
+            <li>Recipients are each configured to be embedded vs remote</li>
             <li>Webhook notifications can be configured for envelope vs recipients</li>
+            <li>DocuSign has a newer webhook solution that is JSON-based, but default is XML</li>
           </ul>
           <b>2 - Create Recipient View</b>
           <ul>
-            <li>300 second TTL - one time use</li>
-            <li>Can be requested numerous times</li>
-            <li>Will only allow links requested in proper signing order (defined in envelope creation)</li>
-            <li>Can configure browser-based ping and ping frequency to maintain state</li>
-            <li>Return URL can be configured for redirect post-signing</li>
-            <li>Query parameter passed in return URL returned through (e.g. state)</li>
+            <li>Link is 300 second TTL, one time use</li>
+            <li>Link can be requested numerous times</li>
+            <li>Link request will fail (with proper error) is link requested out of order (defined in envelope creation)</li>
+            <li>Can configure ping and ping frequency (via browser) to maintain state</li>
+            <li>Redirect URL configured when creating link</li>
+            <li>Query parameters passed in Return URL returned via redirect (e.g. session)</li>
+          </ul>
+          <b>Misc Notes</b>
+          <ul>
+            <li>DocuSign STRONGLY recommends Redirect over iFrame</li>
+            <li>Plan is to use PDF signing</li>
           </ul>
         </div>
       </div>
