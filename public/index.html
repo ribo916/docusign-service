@@ -18,138 +18,81 @@
         </div>
       </header>
     <main class="mdl-layout__content">
-    <div align="center">
-      <br><br>
-      <div id="overlay">
-        <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-        <div id="text">Processing...</div>
-      </div>      
-
-      <div class="fa-1x">
-        <i class="fa-solid fa-envelope"></i>
-        <i class="fa-solid fa-file-signature"></i>
-        <i class="fa-solid fa-file-contract"></i>
-        <i class="fa-solid fa-cog fa-spin"></i>
-        <i class="fa-solid fa-tire fa-spin" style="--fa-animation-duration: 3s; --fa-animation-iteration-count: 5;--fa-animation-timing: ease-in-out;"></i>
-        <i class="fas fa-car"></i>
-      </div>
-      <br>
-
-      <!-- OVERVIEW -->
-      <div class="card">
-        <div class="container">
-          <b>Overview</b>
-          <p>This sample REPL demos the DocuSign embedded signing process in a generic consumer web application</p>
+      <div align="center">
+        <br><br>
+        <div id="overlay">
+          <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+          <div id="text">Processing...</div>
+        </div>   
+        <div class="fa-1x">
+          <i class="fa-solid fa-envelope"></i>
+          <i class="fa-solid fa-file-signature"></i>
+          <i class="fa-solid fa-file-contract"></i>
+          <i class="fa-solid fa-cog fa-spin"></i>
+          <i class="fa-solid fa-tire fa-spin" style="--fa-animation-duration: 3s; --fa-animation-iteration-count: 5;--fa-animation-timing: ease-in-out;"></i>
+          <i class="fas fa-car"></i>
         </div>
-      </div>
-      <br>
-      <!-- https://www.docusign.com/blog/developers/connect-webhooks-json-notifications -->
-      <!-- DocuSign Process -->
-      <div class="card">
-        <div class="container">
-          <!--
-          <b>1 - Create Envelope</b>
-          <ul>
-            <li>Envelope created with documents, recipients, and webhook configs</li>
-            <li>Recipients are created with a signing order</li>
-            <li>Recipients are each configured to be embedded vs remote</li>
-            <li>Webhook notifications are sent via DocuSign Connect</li>
-          </ul>
-          <b>2 - Create Recipient View</b>
-          <ul>
-            <li>Link is 300 second TTL, one time use</li>
-            <li>Link can be requested numerous times</li>
-            <li>Link request will fail (with proper error) is link requested out of order</li>
-            <li>Can configure ping and ping frequency to maintain the application state during redirect</li>
-            <li>Return redirect URL configured when creating link</li>
-            <li>Query parameters passed back via redirect (e.g. session)</li>
-          </ul>
-          <b>Misc</b>
-          <ul>
-            <li>DocuSign recommends Redirect over iFrame</li>
-            <ul>
-              <li><a href="https://www.docusign.com/blog/developers/the-problems-iframes" target="_blank">Reference 1</a></li>
-              <li><a href="https://www.docusign.com/blog/developers/new-browser-security-settings-and-iframes#:~:text=Don't%20use%20an%20iframe&text=Similar%20to%20the%20issues%20for,browser%20for%20the%20signing%20ceremony." target="_blank">Reference 2</a></li>
-            </ul>
-            <li>Current decision to leverage PDF signing</li>
-            <ul>
-              <li><a href="https://slides.com/compliancesystems/signing/fullscreen" target="_blank">Jan 2022 Conversation</a></li>
-            </ul>
-            <li>DocuSign solution options</li>
-            <ul>
-              <li>ISV Referral = Use CU account</li>
-              <li>ISV Reseller = Use our own account</li>
-              <li>Our plan was originally ISV Referral on day 1, but our new LOS supports either model</li>
-            </ul>
-            <li>Webhooks</li>
-            <ul>
-              <li><a href="https://www.docusign.com/blog/developers/connect-20" target="_blank">DocuSign Connect v2</a></li>
-              <li>Must enable this feature (free) in the specific DocuSign account</li>
-              <li>Change the EnvelopeCreate method to list all the specific events you want</li>
-            </ul>
-          </ul>
-          <b>TODO</b>
-          <ul>            
-            <li>Update this site to use Connectv2.0 (new JSON webhook model)</li>
-          </ul>  
-          -->
-          <b>DocuSign HTML</b>
-          <ul>            
-            <li>Slow!! Over 60 seconds for 20 small HTML</li>
-            <li>Paginated workflow clean, but takes longer to get through</li>
-          </ul>
-          <b>DocuSign PDF (default)</b>
-          <ul>            
-            <li>Single page of scrolling PDF</li>
-          </ul>
-          <b>DocuSign Mixed</b>
-          <ul>            
-            <li>Swaps between Responsive and Default mode</li>
-            <li>PDF may sneak into package</li>
-            <li>Can force responsive PDF mode, but no promise on look/feel</li>
-          </ul>
-        </div>
-      </div>
-      <br>
-      
-      <form method="POST" id="myform" action="/redirect">
+        <br>
 
-        <div class="buttoncontainer">
+      <form method="POST" id="myform" action="/redirect">          
 
-          <div>
-            <!-- // 1 = HTML, 2 = PDF, else MIXED -->
-            <input type="radio" id="html" name="scenario" value="1">
-            <label for="html">HTML</label>
-            <input type="radio" id="pdf" name="scenario" value="2" checked>
-            <label for="css">PDF</label>
-            <input type="radio" id="mixed" name="scenario" value="3">
-            <label for="javascript">MIXED</label>
+        <!-- DOCUSIGN CARD -->
+        <div class="card">
+          <div class="container">        
+            <b>DocuSign Demo</b>
+            <ul>            
+              <li>HTML API performance is poor</li>
+              <li>Paginated workflow clean, but takes longer to get through</li>
+              <li>DocuSign account has mobile-friendly, converting only "all PDF"</li>
+            </ul>     
+            <div class="buttoncontainer">
+              <div>            
+                <input type="radio" id="html" name="scenario" value="1">
+                <label for="html">HTML</label>
+                <input type="radio" id="pdf" name="scenario" value="2" checked>
+                <label for="css">PDF</label>
+                <input type="radio" id="mixed" name="scenario" value="3">
+                <label for="javascript">MIXED</label>
+              </div>
+              <br>            
+              <button
+                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
+                id="btnRedirect"
+                name="btnRedirect"
+                type="submit"
+                onTouchStart="loadingonphone()"
+                onclick="loadingon()">
+                Submit
+              </button>                
+            </div>          
           </div>
-          <br>  
-          
-          <button
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
-            id="btnRedirect"
-            name="btnRedirect"
-            type="submit"
-            onTouchStart="loadingonphone()"
-            onclick="loadingon()">
-            DocuSign
-          </button>
-
-          <button
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
-            id="btnRedirect2" 
-            formaction="/redirectimm" 
-            onclick="loadingon()">
-            IMM (PDF Only)
-          </button>         
         </div>
-      </form> 
-      <br>
-      </form>
-    </div>
-  </main>
+
+        <br> 
+        
+        <!-- IMM CARD -->
+        <div class="card">
+          <div class="container">
+            <b>IMM Demo</b>
+            <ul>            
+              <li>PDF only</li>
+            </ul>             
+            <div class="buttoncontainer">
+              <button
+                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
+                id="btnRedirect2" 
+                formaction="/redirectimm" 
+                onclick="loadingon()">
+                Submit
+              </button>               
+            </div>            
+          </div>
+        </div>
+        
+      </form>  
+        
+      </div>
+    </main>
 </div>
     <script>
       function loadingonphone() {
