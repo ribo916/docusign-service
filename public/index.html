@@ -32,7 +32,7 @@
         </div>
         <br>
 
-      <form method="POST" id="myform" action="/redirect">          
+                
 
         <!-- DOCUSIGN CARD -->
         <div class="card">
@@ -44,7 +44,8 @@
               <li>Paginated vs list</li>
               <li>Mobile-friendly PDF</li>
               <li>Mixed signing workflow</li>
-            </ul>     
+            </ul>    
+            <form method="POST" id="myform" action="/redirect">
             <div class="buttoncontainer">
               <div>            
                 <input type="radio" id="html" name="scenario" value="1">
@@ -64,7 +65,8 @@
                 onclick="loadingon()">
                 Submit
               </button>                
-            </div><br>        
+            </div><br> 
+            </form>
           </div>
         </div>
 
@@ -77,21 +79,24 @@
             <b>IMM</b>
             <ul>            
               <li>PDF only</li>
-            </ul>             
+            </ul>  
+            <form method="POST" id="myform" action="/redirectimm">
             <div class="buttoncontainer">
               <button
                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
-                id="btnRedirect2" 
-                formaction="/redirectimm"
+                id="btnRedirect2"
+                name="btnRedirect2"
+                type="submit"
                 onTouchStart="loadingonphone()"
                 onclick="loadingon()">
                 Submit
               </button>               
-            </div><br>            
+            </div><br>
+            </form>
           </div>
         </div>
         
-      </form>  
+        
         
       </div>
     </main>
