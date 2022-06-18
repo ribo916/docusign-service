@@ -6,66 +6,59 @@ function makeEnvelope(args) {
   let env = new docusign.EnvelopeDefinition();
   env.emailSubject = "DocuSign REPLIT Example";
 
-  let doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8, doc9, doc10, doc11;
+  // TODO: Clean this crap up
+  let doc1 = createHtmlDefinitionDoc('CreditScoreSummary.html');
+  doc1.documentId = "1";
+  let doc2 = createHtmlDefinitionDoc('Odometer.html');
+  doc2.documentId = "2";
+  let doc3 = createHtmlDefinitionDoc('AgreementNotToExport.html');
+  doc3.documentId = "3";
+  let doc4 = createHtmlDefinitionDoc('AgreementToProvideIns.html');
+  doc4.documentId = "4";
+  let doc5 = createHtmlDefinitionDoc('ConsumerLoan.html');
+  doc5.documentId = "5";
+  let doc6 = createHtmlDefinitionDoc('DCAP_CO.html');
+  doc6.documentId = "6";
+  let doc7 = createHtmlDefinitionDoc('FactAct.html');
+  doc7.documentId = "7";
+  let doc8 = createHtmlDefinitionDoc('Law_Contract.html');
+  doc8.documentId = "8";
+  let doc9 = createHtmlDefinitionDoc('RetailSpotDelivery.html');
+  doc9.documentId = "9";
+  let doc10 = createHtmlDefinitionDoc('WA_Payoff_Release.html');
+  doc10.documentId = "10";
+  let doc11 = createHtmlDefinitionDoc('WA_DMV_LemonLaw.html');
+  doc11.documentId = "11";
+  let pdoc1 = readPdfDoc("CreditScoreSummary.pdf");
+  pdoc1.documentId = "1"; 
+  let pdoc2 = readPdfDoc("OdometerStatement.pdf");
+  pdoc2.documentId = "2";
+  let pdoc3 = readPdfDoc('AgreementNotToExport.pdf');
+  pdoc3.documentId = "3";
+  let pdoc4 = readPdfDoc('AgreementToProvideIns.pdf');
+  pdoc4.documentId = "4";
+  let pdoc5 = readPdfDoc('ConsumerLoan.pdf');
+  pdoc5.documentId = "5";
+  let pdoc6 = readPdfDoc('91581_DCAP_CO.pdf');
+  pdoc6.documentId = "6";
+  let pdoc7 = readPdfDoc('FactActNotice.pdf');
+  pdoc7.documentId = "7";
+  let pdoc8 = readPdfDoc('43894_Law_Contract.pdf');
+  pdoc8.documentId = "8";
+  let pdoc9 = readPdfDoc('RetailSpotDelivery.pdf');
+  pdoc9.documentId = "9";
+  let pdoc10 = readPdfDoc('85821_WA_Payoff_Release.pdf');
+  pdoc10.documentId = "10";
+  let pdoc11 = readPdfDoc('88352_WA_DMV_LemonLaw.pdf');
+  pdoc11.documentId = "11";
+
+  // Create envelope based on scenario requested
   if (args.scenario == 1) {
-    doc1 = createHtmlDefinitionDoc('CreditScoreSummary.html');
-    doc1.documentId = "1";
-    doc2 = createHtmlDefinitionDoc('Odometer.html');
-    doc2.documentId = "2";
-    doc3 = createHtmlDefinitionDoc('AgreementNotToExport.html');
-    doc3.documentId = "3";
-    doc4 = createHtmlDefinitionDoc('AgreementToProvideIns.html');
-    doc4.documentId = "4";
-    doc5 = createHtmlDefinitionDoc('ConsumerLoan.html');
-    doc5.documentId = "5";
-    doc6 = createHtmlDefinitionDoc('DCAP_CO.html');
-    doc6.documentId = "6";
-    doc7 = createHtmlDefinitionDoc('FactAct.html');
-    doc7.documentId = "7";
-    doc8 = createHtmlDefinitionDoc('Law_Contract.html');
-    doc8.documentId = "8";
-    doc9 = createHtmlDefinitionDoc('RetailSpotDelivery.html');
-    doc9.documentId = "9";
-    doc10 = createHtmlDefinitionDoc('WA_Payoff_Release.html');
-    doc10.documentId = "10";
-    doc11 = createHtmlDefinitionDoc('WA_DMV_LemonLaw.html');
-    doc11.documentId = "11";
-    env.documents = [doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8, doc9, doc10, doc11];
+    env.documents = [doc1, doc2, doc4, doc8, doc11];
   } else if (args.scenario == 2) {
-    doc1 = readPdfDoc("CreditScoreSummary.pdf");
-    doc1.documentId = "1"; 
-    doc2 = readPdfDoc("OdometerStatement.pdf");
-    doc2.documentId = "2";
-    doc3 = readPdfDoc('AgreementNotToExport.pdf');
-    doc3.documentId = "3";
-    doc4 = readPdfDoc('AgreementToProvideIns.pdf');
-    doc4.documentId = "4";
-    doc5 = readPdfDoc('ConsumerLoan.pdf');
-    doc5.documentId = "5";
-    doc6 = readPdfDoc('91581_DCAP_CO.pdf');
-    doc6.documentId = "6";
-    doc7 = readPdfDoc('FactActNotice.pdf');
-    doc7.documentId = "7";
-    doc8 = readPdfDoc('43894_Law_Contract.pdf');
-    doc8.documentId = "8";
-    doc9 = readPdfDoc('RetailSpotDelivery.pdf');
-    doc9.documentId = "9";
-    doc10 = readPdfDoc('85821_WA_Payoff_Release.pdf');
-    doc10.documentId = "10";
-    doc11 = readPdfDoc('88352_WA_DMV_LemonLaw.pdf');
-    doc11.documentId = "11";
-    
-    env.documents = [doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8, doc9, doc10, doc11];    
+    env.documents = [pdoc1, pdoc2, pdoc4, pdoc8, pdoc11];    
   } else {
-    doc1 = createHtmlDefinitionDoc('CreditScoreSummary.html');
-    doc1.documentId = "1";
-    doc2 = createHtmlDefinitionDoc('Odometer.html');
-    doc2.documentId = "2";
-    doc3 = readPdfDoc("WeOwe.pdf");
-    doc3.documentId = "3"; 
-    doc4 = readPdfDoc("W9.pdf");
-    doc4.documentId = "4";
-    env.documents = [doc1, doc2, doc3, doc4];   
+    env.documents = [doc1, doc2, doc4, doc8, doc11, pdoc5];   
   }
   
   // Construct Signer Object
@@ -90,8 +83,8 @@ function makeEnvelope(args) {
 
   // Anchor tags for PDF example
   let signHerePdf = docusign.SignHere.constructFromObject({
-    anchorString: "Authorized Dealership Representative",
-    anchorYOffset: "20",
+    anchorString: "Co-Customer Signs X",
+    anchorYOffset: "-10",
     anchorUnits: "pixels",
     anchorXOffset: "0"
   });

@@ -1,16 +1,22 @@
 ## DOCUSIGN SETUP
 
 ### Prerequisites
-This REPLIT requires the user to setup a free DocuSign account. Under Apps and Keys, you must create an integration application. Essentially, if you can create a quickstart or postman collection against your account, you can configure this replit as well. 
+This REPLIT requires the user to setup a free DocuSign account.
 
 ### Secrets 
 
-Create the following secrets in your REPLIT based on your own DocuSign account
+Create the following secrets in your REPLIT based on your own DocuSign account. Put fake data in IMM if you don't have a test system.
 
 * integrationkey = When you create an API application, you get this 
 * userid = At the account level. This is who our JWT is impersonating for esigning
 * privatekey = Cut/paste your RSA private key here
 * redirecturi = Cut/paste the redirect uri you set in your DocuSign API app. This is used for the initial consent. 
+* imm_apikey
+* imm_buisnessappuserid
+* imm_endpoint
+* imm_hostfiid
+* imm_partnerid
+* imm_userid
 
 ### Authentication Details
 
@@ -33,15 +39,7 @@ We are using JWT authentication with this replit. We don't want users to require
 
 
 
-## IMM integration
-This REPL also supports IMM just for comparison purposes, but isn't required. This requires relationship with IMM. The Secrets that must be configured if forking this REPLIT are:
 
-* imm_apikey
-* imm_buisnessappuserid
-* imm_endpoint
-* imm_hostfiid
-* imm_partnerid
-* imm_userid
 
 
 

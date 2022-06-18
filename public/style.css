@@ -32,7 +32,9 @@
 }
 
 /*GLOBAL*/
-body { background-color: white; }
+body { 
+  background-color: white;
+}
 
 /*CARD*/
 .card {
@@ -40,7 +42,7 @@ body { background-color: white; }
   transition: 0.3s;
   border-radius: 15px;
   /*width: 95%;*/
-  width: 375px;
+  width: 300px;
 }
 
 .card:hover {

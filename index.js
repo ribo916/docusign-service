@@ -91,11 +91,11 @@ app.listen(process.env.PORT || 3000, function() {
 // ***********************************************
 
 app.get('/', async (req, res) => {
-  res.sendFile('public/index.html'); // no need to specify dir off root
+  res.sendFile('public/index.html'); 
 });
 
 app.post('/', async (req, res) => {
-  res.sendFile('public/index.html'); // no need to specify dir off root
+  res.sendFile('public/index.html'); 
 });
 
 app.get('/getlinkmixed', async (req, res) => {
