@@ -45,7 +45,7 @@
               <li>Mobile-friendly PDF</li>
               <li>Mixed signing workflow</li>
             </ul>    
-            <form method="POST" id="myform" action="/redirect">
+            <form method="POST" id="dsform" action="/redirect">
             <div class="buttoncontainer">
               <div>            
                 <input type="radio" id="html" name="scenario" value="1">
@@ -80,14 +80,14 @@
             <ul>            
               <li>PDF only</li>
             </ul>  
-            <form method="POST" id="myform" action="/redirectimm">
+            <form method="POST" id="immform" action="/redirectimm">
             <div class="buttoncontainer">
               <button
                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
                 id="btnRedirect2"
                 name="btnRedirect2"
                 type="submit"
-                onTouchStart="loadingonphone()"
+                onTouchStart="loadingimmonphone()"
                 onclick="loadingon()">
                 Submit
               </button>               
@@ -104,7 +104,11 @@
     <script>
       function loadingonphone() {
         document.getElementById("overlay").style.display = "block";
-        document.getElementById("myform").submit();
+        document.getElementById("dsform").submit();
+      }
+      function loadingimmonphone() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("immform").submit();
       }
       function loadingon() {
         document.getElementById("overlay").style.display = "block";
