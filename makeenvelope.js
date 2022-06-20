@@ -29,7 +29,7 @@ function makeEnvelope(args) {
   doc10.documentId = "10";
   let doc11 = createHtmlDefinitionDoc('WA_DMV_LemonLaw.html');
   doc11.documentId = "11";
-  let pdoc1 = readPdfDoc("CreditScoreSummary.pdf");
+  let pdoc1 = readPdfDocAsHtml("CreditScoreSummary.pdf");
   pdoc1.documentId = "1"; 
   let pdoc2 = readPdfDoc("OdometerStatement.pdf");
   pdoc2.documentId = "2";
@@ -56,7 +56,8 @@ function makeEnvelope(args) {
   if (args.scenario == 1) {
     env.documents = [doc1, doc2, doc4, doc8, doc11];
   } else if (args.scenario == 2) {
-    env.documents = [pdoc1, pdoc2, pdoc4, pdoc8, pdoc11];    
+    env.documents = [pdoc1];    
+    // env.documents = [pdoc1, pdoc2, pdoc4, pdoc8, pdoc11];    
   } else {
     env.documents = [doc1, doc2, doc4, doc8, doc11, pdoc5];   
   }
@@ -138,6 +139,23 @@ function readPdfDoc(filename) {
   doc.documentBase64 = data;
   doc.fileExtension = "pdf";
   doc.name = filename; // + ".pdf"; 
+  return doc;
+}
+
+// Read PDF from folder and return document object (with responsive signing)
+function readPdfDocAsHtml(filename) {
+  let htmlDefinition = new docusign.DocumentHtmlDefinition();
+  htmlDefinition.source = "document"; 
+  // htmlDefinition.showMobileOptimizedToggle = true;
+  // console.log('htmldef = ' + JSON.stringify(htmlDefinition));
+  
+  const data = fs.readFileSync('pdf/'+filename,{encoding:'base64', flag:'r'});
+  let doc = new docusign.Document();
+  doc.documentBase64 = data;
+  // doc.fileExtension = "pdf";
+  doc.name = filename;  
+  doc.htmlDefinition = htmlDefinition;
+
   return doc;
 }
 
