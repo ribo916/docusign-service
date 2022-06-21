@@ -29,7 +29,7 @@ function makeEnvelope(args) {
   doc10.documentId = "10";
   let doc11 = createHtmlDefinitionDoc('WA_DMV_LemonLaw.html');
   doc11.documentId = "11";
-  let pdoc1 = readPdfDocAsHtml("CreditScoreSummary.pdf");
+  let pdoc1 = readPdfDoc("CreditScoreSummary.pdf");
   pdoc1.documentId = "1"; 
   let pdoc2 = readPdfDoc("OdometerStatement.pdf");
   pdoc2.documentId = "2";
@@ -56,8 +56,7 @@ function makeEnvelope(args) {
   if (args.scenario == 1) {
     env.documents = [doc1, doc2, doc4, doc8, doc11];
   } else if (args.scenario == 2) {
-    env.documents = [pdoc1];    
-    // env.documents = [pdoc1, pdoc2, pdoc4, pdoc8, pdoc11];    
+    env.documents = [pdoc1, pdoc2, pdoc4, pdoc8, pdoc11];    
   } else {
     env.documents = [doc1, doc2, doc4, doc8, doc11, pdoc5];   
   }
